@@ -50,11 +50,11 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         default = True
         with open(filename, "rb+") as file_obj:
             for line in file_obj:
-                if line.startswith("--"):
+                if line.startswith(b"--"):
                     continue
-                if line.startswith("/*"):
+                if line.startswith(b"/*"):
                     default = False
-                if line.startswith("*/") or line.endswith("*/"):
+                if line.startswith(b"*/") or line.endswith(b"*/"):
                     default = True
                 if default:
                     lines.append(line)
