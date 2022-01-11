@@ -7,7 +7,7 @@ from typing import Sequence
 from pre_commit_dbt.utils import add_filenames_args
 
 
-def check_semicolon(file_obj: IO[bytes], replace) -> int:
+def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
     # Test for newline at end of file
     # Empty files will throw IOError here
     status_code = 0
@@ -27,13 +27,13 @@ def check_semicolon(file_obj: IO[bytes], replace) -> int:
         last_character = file_obj.read(1)  # pragma: no mutate
 
     # If last character is semicolon
-    if last_character == b";":
-        print(f"Inside Last Character Block")
+    if last_char == ";":
         if replace:
-            print(f"Inside Replace Block")
-            file_obj.seek(-1, os.SEEK_CUR)
-            file_obj.truncate()
-        status_code = 1
+            with open('file_obj', 'r') as infile,open('file_obj', 'w') as outfile:
+                data = infile.read()
+                data = data.replace(";", "")
+                outfile.write(data)
+                status_code = 1
     return status_code
 
 
@@ -43,11 +43,24 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
 
     args = parser.parse_args(argv)
     status_code = 0
-
+    
     for filename in args.filenames:
         # Read as binary so we can read byte-by-byte
+        lines = []
+        default = True
         with open(filename, "rb+") as file_obj:
-            status_code_file = check_semicolon(file_obj,replace=True)
+            for line in file_obj:
+                if line.startswith("--"):
+                    continue
+                if line.startswith("/*"):
+                    default = False
+                if line.startswith("*/") or line.endswith("*/")
+                    default = True
+                if default:
+                    lines.append(line)
+            chars = str(lines[-1])
+            last_char = chars[-1]
+            status_code_file = check_semicolon(file_obj,last_char,replace=True)
             if status_code_file:
                 print(
                     f"{filename}: contains a semicolon at the end. "
