@@ -7,7 +7,7 @@ from typing import Sequence
 from pre_commit_dbt.utils import add_filenames_args
 
 
-def check_semicolon(file_obj: IO[bytes], replace: bool = False) -> int:
+def check_semicolon(file_obj: IO[bytes], replace) -> int:
     # Test for newline at end of file
     # Empty files will throw IOError here
     status_code = 0
@@ -45,7 +45,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     for filename in args.filenames:
         # Read as binary so we can read byte-by-byte
         with open(filename, "rb+") as file_obj:
-            status_code_file = check_semicolon(file_obj)
+            status_code_file = check_semicolon(file_obj,replace=True)
             if status_code_file:
                 print(
                     f"{filename}: contains a semicolon at the end. "
