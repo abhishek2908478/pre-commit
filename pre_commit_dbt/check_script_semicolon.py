@@ -28,7 +28,9 @@ def check_semicolon(file_obj: IO[bytes], replace) -> int:
 
     # If last character is semicolon
     if last_character == b";":
+        print(f"Inside Last Character Block")
         if replace:
+            print(f"Inside Replace Block")
             file_obj.seek(-1, os.SEEK_CUR)
             file_obj.truncate()
         status_code = 1
