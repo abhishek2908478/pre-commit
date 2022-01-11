@@ -54,7 +54,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     continue
                 if line.startswith("/*"):
                     default = False
-                if line.startswith("*/") or line.endswith("*/")
+                if line.startswith("*/") or line.endswith("*/"):
                     default = True
                 if default:
                     lines.append(line)
