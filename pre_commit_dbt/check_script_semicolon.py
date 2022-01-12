@@ -10,7 +10,7 @@ from pre_commit_dbt.utils import add_filenames_args
 def check_semicolon(filename,last_char, replace) -> int:
     # Test for newline at end of file
     # Empty files will throw IOError here
-    status_code = 0
+    status_code = 1
 #     try:
 #         file_obj.seek(-1, os.SEEK_END)
 #     except OSError:
