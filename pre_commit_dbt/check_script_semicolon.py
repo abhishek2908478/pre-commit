@@ -30,12 +30,11 @@ def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
     # If last character is semicolon
     if last_char == ";":
         if replace:
-            with open(file_obj, 'r') as infile,open(file_obj, 'w') as outfile:
-                print("inside infile")
-                data = infile.read()
-                data = data.replace(";", "")
-                outfile.write(data)
-                status_code = 1
+            print("inside replace")
+            data = file_obj.read()
+            data = data.replace(";", "")
+            file_obj.write(data)
+            status_code = 1
     return status_code
 
 
