@@ -51,7 +51,6 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         default = True
         with open(filename, "rb+") as file_obj:
             for line in file_obj:
-                line = str(line)
                 if line.startswith("--"):
                     continue
                 if line.startswith("/*"):
@@ -66,7 +65,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     print("Inside Default Block")
                     lines.append(line)
             print(lines)        
-            chars = str(lines[-1])
+            chars = lines[-1].decode('UTF-8')
             last_char = chars[-1]
             print(last_char)
             status_code_file = check_semicolon(file_obj,last_char,replace=True)
