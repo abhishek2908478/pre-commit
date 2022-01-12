@@ -11,20 +11,20 @@ def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
     # Test for newline at end of file
     # Empty files will throw IOError here
     status_code = 0
-    try:
-        file_obj.seek(-1, os.SEEK_END)
-    except OSError:
-        return status_code
-    last_character = file_obj.read(1)  # pragma: no mutate
+#     try:
+#         file_obj.seek(-1, os.SEEK_END)
+#     except OSError:
+#         return status_code
+#     last_character = file_obj.read(1)  # pragma: no mutate
 
-    while last_character in {b"\n", b"\r"}:  # pragma: no mutate
-        # Deal with the beginning of the file
-        if file_obj.tell() == 1:
-            return status_code
+#     while last_character in {b"\n", b"\r"}:  # pragma: no mutate
+#         # Deal with the beginning of the file
+#         if file_obj.tell() == 1:
+#             return status_code
 
-        # Go back two bytes and read a character
-        file_obj.seek(-2, os.SEEK_CUR)
-        last_character = file_obj.read(1)  # pragma: no mutate
+#         # Go back two bytes and read a character
+#         file_obj.seek(-2, os.SEEK_CUR)
+#         last_character = file_obj.read(1)  # pragma: no mutate
 
     # If last character is semicolon
     if last_char == ";":
@@ -50,13 +50,14 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
         default = True
         with open(filename, "rb+") as file_obj:
             for line in file_obj:
-                if line.startswith(b"--"):
+                line = str(line)
+                if line.startswith("--"):
                     continue
-                if line.startswith(b"/*"):
+                if line.startswith("/*"):
                     print("inside /* block")
                     default = False
                     continue
-                if line.startswith(b"*/") or line.endswith(b"*/"):
+                if line.startswith("*/") or line.endswith("*/"):
                     print("inside */ block")
                     default = True
                     continue
