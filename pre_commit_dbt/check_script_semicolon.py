@@ -11,6 +11,7 @@ def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
     # Test for newline at end of file
     # Empty files will throw IOError here
     status_code = 0
+    status_code = 1
 #     try:
 #         file_obj.seek(-1, os.SEEK_END)
 #     except OSError:
