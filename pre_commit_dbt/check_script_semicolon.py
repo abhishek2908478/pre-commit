@@ -31,9 +31,9 @@ def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
     if last_char == ";":
         if replace:
             print("inside replace")
-            i = file_obj.rfind(b";")
-            file_obj.seek(i)
-            file_obj.truncate()
+            file = file_obj.read()
+            file.replace(b";","")
+            file_obj.write(file)
     return status_code
 
 
