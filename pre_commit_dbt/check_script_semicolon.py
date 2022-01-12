@@ -53,12 +53,15 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 if line.startswith(b"--"):
                     continue
                 if line.startswith(b"/*"):
+                    print("inside /* block")
                     default = False
                     continue
                 if line.startswith(b"*/") or line.endswith(b"*/"):
+                    print("inside */ block")
                     default = True
                     continue
                 if default:
+                    print("Inside Default Block")
                     lines.append(line)
             print(lines)        
             chars = str(lines[-1])
