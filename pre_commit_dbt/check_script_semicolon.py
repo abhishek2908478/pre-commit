@@ -54,10 +54,13 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     continue
                 if line.startswith(b"/*"):
                     default = False
+                    continue
                 if line.startswith(b"*/") or line.endswith(b"*/"):
                     default = True
+                    continue
                 if default:
                     lines.append(line)
+            print(lines)        
             chars = str(lines[-1])
             last_char = chars[-1]
             status_code_file = check_semicolon(file_obj,last_char,replace=True)
