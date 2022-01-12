@@ -76,6 +76,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
     
         print(lines)        
         chars = lines[-1].decode('UTF-8')
+        chars = chars.strip()
         last_char = chars[-1]
         print(last_char)
         status_code_file = check_semicolon(filename,last_char,replace=True)
