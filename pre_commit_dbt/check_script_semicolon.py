@@ -7,7 +7,7 @@ from typing import Sequence
 from pre_commit_dbt.utils import add_filenames_args
 
 
-def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
+def check_semicolon(filename,last_char, replace) -> int:
     # Test for newline at end of file
     # Empty files will throw IOError here
     status_code = 0
@@ -28,20 +28,20 @@ def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
 #         last_character = file_obj.read(1)  # pragma: no mutate
 
     # If last character is semicolon
-    if last_char == ";":
-        if replace:
-            print("inside replace")
-            file_obj.seek(0)
-            file = file_obj.read()
-            
-#             file = file.decode('UTF-8')
-            print("before replace",file)
-#             file = file.replace(b";",b"")
-            file_obj.seek(0)
-            file_obj.truncate()
-            file_obj.write(file.replace(b";",b""))
-            print("after replace",file)
-    return status_code
+    with open(fileame,"r+") as infile:
+        if last_char == ";":
+            if replace:
+                print("inside replace")
+                infile.seek(0)
+                file = infile.read()
+    #             file = file.decode('UTF-8')
+                print("before replace",file)
+                file = file.replace(b";",b"")
+                infile.seek(0)
+                infile.truncate()
+                infile.write(file)
+                print("after replace",file)
+        return status_code
 
 
 def main(argv: Optional[Sequence[str]] = None) -> int:
@@ -70,18 +70,20 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                 if default:
                     print("Inside Default Block")
                     lines.append(line)
-            print(lines)        
-            chars = lines[-1].decode('UTF-8')
-            last_char = chars[-1]
-            print(last_char)
-            status_code_file = check_semicolon(file_obj,last_char,replace=True)
-            if status_code_file:
-                print(
-                    f"{filename}: contains a semicolon at the end. "
-                    f"dbt does not support that."
-                )
-                status_code = status_code_file
-
+                    
+            file_obj.close()   
+    
+        print(lines)        
+        chars = lines[-1].decode('UTF-8')
+        last_char = chars[-1]
+        print(last_char)
+        status_code_file = check_semicolon(filename,last_char,replace=True)
+        if status_code_file:
+            print(
+            f"{filename}: contains a semicolon at the end. "
+            f"dbt does not support that."
+            )
+        status_code = status_code_file
     return status_code
 
 
