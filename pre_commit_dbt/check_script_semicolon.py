@@ -11,7 +11,6 @@ def check_semicolon(filename,last_char, replace) -> int:
     # Test for newline at end of file
     # Empty files will throw IOError here
     status_code = 0
-    status_code = 1
 #     try:
 #         file_obj.seek(-1, os.SEEK_END)
 #     except OSError:
@@ -34,13 +33,14 @@ def check_semicolon(filename,last_char, replace) -> int:
                 print("inside replace")
                 infile.seek(0)
                 file = infile.read()
-    #             file = file.decode('UTF-8')
                 print("before replace",file)
                 file = file.replace(";","")
                 infile.seek(0)
                 infile.truncate()
                 infile.write(file)
                 print("after replace",file)
+                status_code = 0
+        infile.close()        
         return status_code
 
 
