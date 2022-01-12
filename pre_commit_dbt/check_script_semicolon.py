@@ -28,7 +28,7 @@ def check_semicolon(filename,last_char, replace) -> int:
 #         last_character = file_obj.read(1)  # pragma: no mutate
 
     # If last character is semicolon
-    with open(fileame,"r+") as infile:
+    with open(filename,"r+") as infile:
         if last_char == ";":
             if replace:
                 print("inside replace")
