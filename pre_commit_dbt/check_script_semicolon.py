@@ -67,8 +67,8 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     print("inside */ block")
                     default = True
                     continue
-                if not line.isspace():
-                    if default:
+                if default: 
+                    if not line.isspace():
                         print("Inside Default Block")
                         lines.append(line)
                     
