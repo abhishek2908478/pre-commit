@@ -36,7 +36,7 @@ def check_semicolon(filename,last_char, replace) -> int:
                 file = infile.read()
     #             file = file.decode('UTF-8')
                 print("before replace",file)
-                file = file.replace(b";",b"")
+                file = file.replace(";","")
                 infile.seek(0)
                 infile.truncate()
                 infile.write(file)
