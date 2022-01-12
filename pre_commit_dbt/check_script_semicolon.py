@@ -32,7 +32,7 @@ def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
         if replace:
             print("inside replace")
             file = file_obj.read()
-            file.replace(b";","")
+            file.replace(b";",b"")
             file_obj.write(file)
     return status_code
 
