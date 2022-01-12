@@ -33,13 +33,14 @@ def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
             print("inside replace")
             file_obj.seek(0)
             file = file_obj.read()
+            
 #             file = file.decode('UTF-8')
             print("before replace",file)
-            file = file.replace(b";",b"")
-            print("after replace",file)
+#             file = file.replace(b";",b"")
             file_obj.seek(0)
             file_obj.truncate()
-            file_obj.write(file)
+            file_obj.write(file.replace(b";",b""))
+            print("after replace",file)
     return status_code
 
 
