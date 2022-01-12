@@ -11,7 +11,6 @@ def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
     # Test for newline at end of file
     # Empty files will throw IOError here
     status_code = 0
-    status_code = 1
 #     try:
 #         file_obj.seek(-1, os.SEEK_END)
 #     except OSError:
@@ -28,7 +27,7 @@ def check_semicolon(file_obj: IO[bytes],last_char, replace) -> int:
 #         last_character = file_obj.read(1)  # pragma: no mutate
 
     # If last character is semicolon
-    if last_char == ";":
+    if last_char == b";":
         if replace:
             with open('file_obj', 'r') as infile,open('file_obj', 'w') as outfile:
                 data = infile.read()
@@ -68,6 +67,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
             print(lines)        
             chars = str(lines[-1])
             last_char = chars[-1]
+            print(last_char)
             status_code_file = check_semicolon(file_obj,last_char,replace=True)
             if status_code_file:
                 print(
