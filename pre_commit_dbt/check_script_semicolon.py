@@ -69,7 +69,7 @@ def main(argv: Optional[Sequence[str]] = None) -> int:
                     continue
                 if default:
                     print("Inside Default Block")
-                    lines.append(line)
+                    lines.append(line.strip())
                     
             file_obj.close()   
     
